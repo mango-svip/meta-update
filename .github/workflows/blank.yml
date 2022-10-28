@@ -36,8 +36,39 @@ jobs:
       - name: Install dependencies
         run:  make init
 
-      - name: Build
-        run:  make build-all
+      - name: Build Windows
+        run:  make build
+
+      - name: Build OSX
+        run:  make build-osx
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-without-markdown
+          path: |
+            dist
+            !dist/**/*.md
+  build-linux:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+          cache: true
+
+      - name: Install dependencies
+        run:  make init
+
+      - name: Build Linux
+        run:  make build-linux
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3

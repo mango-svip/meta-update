@@ -19,7 +19,7 @@ clean:
 	rm -rf  ./${OUTPUT}/*
 build:
 	CGO_ENABLED=${CGO_ENABLED} GOOS=windows GOARCH=${GOARCH} ${GOBUILD} -o ${OUTPUT}/${OUTPUT_NAME}.exe .
-	chmod +x ./${OUTPUT}/${OUTPUT_NAME}
+	chmod +x ./${OUTPUT}/${OUTPUT_NAME}.exe
 build-osx:
 	CGO_ENABLED=${CGO_ENABLED} GOOS=darwin GOARCH=${GOARCH} ${GOBUILD} -o ${OUTPUT}/${OUTPUT_NAME}  .
 	chmod +x ./${OUTPUT}/${OUTPUT_NAME}

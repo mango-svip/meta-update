@@ -34,13 +34,13 @@ jobs:
           cache: true
 
       - name: Install dependencies
-        run:  make init
+        run:  make init clean
 
       - name: Build Windows
-        run:  make clean build
+        run:  make build
 
       - name: Build OSX
-        run:  make clean build-osx
+        run:  make build-osx
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
@@ -65,10 +65,10 @@ jobs:
           cache: true
 
       - name: Install dependencies
-        run:  make init
+        run:  make init clean
 
       - name: Build Linux
-        run:  make clean build-linux
+        run:  make build-linux
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3

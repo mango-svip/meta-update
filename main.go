@@ -3,6 +3,7 @@ package main
 import (
     "crypto/tls"
     "encoding/json"
+    "flag"
     "fmt"
     "github.com/fzdwx/infinite/components"
     "github.com/fzdwx/infinite/components/progress"
@@ -29,8 +30,15 @@ type Assets struct {
 }
 
 var client = http.DefaultClient
+var regex = ""
+
+func init() {
+    flag.StringVar(&regex, "p", "Clash.Meta-windows-amd64-alpha-.+.zip", "名称匹配表达式(正则)")
+    flag.Parse()
+}
 
 func main() {
+    fmt.Println("meta名称匹配规则:【", regex, "】")
     https_proxy := os.Getenv("https_proxy")
     if https_proxy != "" {
         proxy, _ := url.Parse(https_proxy)
@@ -62,7 +70,7 @@ func main() {
     if err != nil {
         panic(err)
     }
-    compile := regexp.MustCompile("Clash.Meta-windows-amd64-alpha-.+.zip")
+    compile := regexp.MustCompile(regex)
     downloadUrl := ""
     name := ""
     for _, asset := range data[0].Assets {
